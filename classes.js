@@ -37,9 +37,10 @@ class Employee {
     this.age = age
   }
   makeWidget(){
-    return (`this.first_name + this.last_name + widget.`)
+    return (this.first_name + ' ' + this.last_name + ' ' + `Widget`)
   }
 }
+// let employee1 = new Employee('dave', 'smith', 'dave@SpeechGrammarList.com', 2)
 
 
 ////////// PROBLEM 2 //////////
@@ -57,15 +58,16 @@ class Employee {
   Call your new class Manager
 */
 
-class Manager {
-  constructor(first_name, last_name, email, age, reports, hire, fire){
-    this.first_name = first_name;
-    this.last_name = last_name;
-    this.email = email;
-    this.age = age;
-    this.reports = [];
-    this.hire = hire;
-    this.fire = fire;
+class Manager extends Employee {
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age);
+    this.reports = []
+  }
+  hire(e){
+    this.reports.push(e)
+  }
+  fire(e){
+    this.reports.splice(e, 1)
   }
 }
 
@@ -91,7 +93,38 @@ class Manager {
   Call your new class ProgressiveManager
 */
 
-//Code Here
+class ProgressiveManager extends Manager{
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age);
+    this.title = 'Not a manager'
+    this.bonus = 0
+  }
+  hire(e){
+    this.reports.push(e)
+    if(0 === this.reports.length) {
+      this.title = 'Not a manager'
+    }
+    if(1 <= this.reports.length && 3 >= this.reports.length) {
+      this.title = 'Barely Manager'
+    }
+    if(4 <= this.reports.length && 10 >= this.reports.length) {
+      this.title = 'Mostly Manager'
+    }
+    if(11 <= this.reports.length && 50 >= this.reports.length) {
+      this.title = 'Manager'
+    }
+    if(51 <= this.reports.length && 100 >= this.reports.length) {
+      this.title = 'Manager Plus'
+    }
+    if(101 < this.reports.length) {
+      this.title = 'Bestest Manager'
+    }
+
+  }
+  fire(e){
+    this.reports.splice(e, 1)
+  }
+}
 
 
 
